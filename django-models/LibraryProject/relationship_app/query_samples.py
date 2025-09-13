@@ -8,7 +8,7 @@ books_by_author = Book.objects.filter(author=author)
 
 #List all books in a library
 library = Library.objects.get(name="Central Library")
-books_in_library = Library.Book.all()
+books_in_library = Library.books.all()
 
 #Retrieve the librarian for a library
 librarian = Librarian.objects.get(library=library)
