@@ -50,7 +50,7 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form}) 
 
-from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import UserProfile, Book
 
 def is_admin(user):
@@ -79,6 +79,7 @@ def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import permission_required
 
 @permission_required('relationship_app.can_add_book', raise_exception=True)
 def add_book_view(request):
