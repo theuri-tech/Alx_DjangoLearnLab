@@ -1,7 +1,7 @@
 from relationship_app.models import Author, Book, Library, Librarian
 
 # Query all books by a specific author
-author = Author.objects.get(name="Jane Doe")
+author = Author.objects.get(name=author_name)
 books_by_author = Book.objects.filter(author=author)
 #    author=author means: “Give me all books where the author field matches the Author object we just fetched.”
 #his uses the ForeignKey relationship from Book to Author.
