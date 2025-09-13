@@ -50,8 +50,8 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form}) 
 
-from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import UserProfile
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from .models import UserProfile, Book
 
 def is_admin(user):
     return hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
@@ -78,4 +78,27 @@ def librarian_view(request):
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
+from django.shortcuts import render, get_object_or_404, redirect
 
+@permission_required('relationship_app.can_add_book', raise_exception=True)
+def add_book_view(request):
+    if request.method == 'POST':
+        #Handle form submission here
+        pass
+    return render(request, 'relationship_app/add_book.html')
+
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def edit_book_view(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+    if request.method == 'POST':
+        #Handle form update
+        pass
+    return render(request, 'relationship_app/edit_book.html', {'book': book})
+
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
+def delete_book_view(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+    if request.method == 'POST':
+        book.delete()
+        return redirect('book_list') #Or wherever you eant to go after deletion
+    return render(request, 'relationship_app/delete_book.html', {'book': book})
