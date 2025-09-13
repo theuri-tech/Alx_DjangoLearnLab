@@ -39,7 +39,7 @@ def logout_view(request):
     return render(request, 'relationship_app/logout.html')
 
 #register view
-def register_view(request):
+def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
