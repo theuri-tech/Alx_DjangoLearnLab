@@ -7,8 +7,8 @@ books_by_author = Book.objects.filter(author=author)
 #his uses the ForeignKey relationship from Book to Author.
 
 #List all books in a library
-library = Library.objects.get(name="Central Library")
-books_in_library = Library.books.all()
+library = Library.objects.get(name=library_name)
+books_in_library = library.books.all()
 
 #Retrieve the librarian for a library
 librarian = Librarian.objects.get(library=library)
